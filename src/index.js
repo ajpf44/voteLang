@@ -1,9 +1,11 @@
 import Fastify from "fastify";
 import registerVote from "./controller/registerVote.js";
 
+const port = process.env.PORT || 3030;
 const fastify = Fastify({
     logger: false,
 });
+
 
 fastify.get("/", (req, res) => {
     const str = "Hello World!";
@@ -16,26 +18,25 @@ fastify.post("/vote", async (req, res) => {
     const vote = await req.body;
     if (vote["lang"] == null || vote["votes"] == null) {
         res.status(400);
-        res.send("1Parâmetros inválidos");
+        res.send("Parâmetros inválidos");
         return;
     }
     const registerStatus = await registerVote(vote["lang"], vote["votes"]);
 
     if (registerStatus == null) {
         res.status(401);
-        res.send("Parâmetros inválidos");
+        res.send("Internal error, cannot register this vote");
         return;
     }
     res.status(200);
     res.send("Voto concluido");
 });
 
-const port = 3030;
 fastify.listen({ port: port }, (err, address) => {
     if (err) {
         console.log("Error: " + err);
         process.exit(1);
     } else {
-        console.log(`server running on http://localhost:${port}/`);
+        console.log(`server running on ${address}`);
     }
 });
