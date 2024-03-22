@@ -1,9 +1,11 @@
-import Fastify from "fastify";
+
+import pkg from 'fastify';
+
 import registerVote from "./model/registerVote.js";
 import consultVote from "./model/consultVotes.js";
 
 const port = process.env.PORT || 3030;
-const fastify = Fastify({
+const fastify = pkg({
     logger: false,
 });
 
@@ -37,7 +39,7 @@ fastify.get("/result", async (req, res) => {
     res.send(myRes);
 });
 
-fastify.listen({ port: port }, (err, address) => {
+fastify.listen({ port: process.env.PORT }, (err, address) => {
     if (err) {
         console.log("Error: " + err);
         process.exit(1);
