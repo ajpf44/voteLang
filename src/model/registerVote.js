@@ -17,8 +17,6 @@ async function registerVote(lang, votes) {
     let res = null;
     const dbC = new dbC();
     const db = await dbC.connectDB();
-    //await dbC.createTable(db);
-    //already exists in db
 
     try {
         if (!lowerCaseSL.includes(lang)) return false;

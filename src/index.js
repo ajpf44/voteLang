@@ -7,9 +7,8 @@ const fastify = Fastify({
     logger: false,
 });
 
-fastify.get("/", (req, res) => {
-    const str = "Hello World!";
-    res.send(str);
+fastify.get("/ping", (req, res) => {
+    res.send('pong');
 });
 
 fastify.post("/vote", async (req, res) => {
@@ -23,7 +22,7 @@ fastify.post("/vote", async (req, res) => {
 
     if (registerStatus == null) {
         res.status(501);
-        res.send("Internal error, cannot register this vote");
+        res.send("Erro interno, não foi possível cadastrar o voto");
         return;
     }
     res.status(200);
@@ -32,7 +31,7 @@ fastify.post("/vote", async (req, res) => {
 
 fastify.get("/result", async (req, res) => {
     const myRes = await consultVote();
-    
+
     res.type("application/json");
     res.status(200);
     res.send(myRes);
