@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .main-container{
+            display: flex;
+            justify-content: space-around;
+        }
+        .main-container>* {
+            border: 0.1rem solid black;
+        }
+
+        .divForm{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            width: 30vw;
+            justify-content: center;
+        }
+
+        .input-container{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .display-results{
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
+            width: 30vw;
+            min-height: 15rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Linguagem de programação favorita</h1>
+        <div class="main-container">
+            <div class="divForm">
+                <div class="input-container">
+                    <label for="selectLang">Linguagem: </label>
+                    <select name="lang" id="selectLang">
+                        <option value="">--------</option>
+                    </select>
+                </div>
+
+                <button>Enviar</button>
+            </div>
+
+            <div class="display-results">
+
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js" type="module"></script>
+</body>
+
+</html>
