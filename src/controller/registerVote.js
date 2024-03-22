@@ -16,8 +16,9 @@ const lowerCaseSL = supportedLanguages.map((lang) => lang.toLowerCase());
 async function registerVote(lang, votes) {
     let res = null;
     const myDB = new Database();
-    const db = await myDB.createDB();
-    await myDB.createTable(db);
+    const db = await myDB.connectDB();
+    //await myDB.createTable(db);
+    //already exists in db
 
     try {
         if (!lowerCaseSL.includes(lang)) return false;
@@ -40,15 +41,13 @@ async function registerVote(lang, votes) {
 
     db.close((err) => {
         if (err) {
-            console.error('Error closing database:', err.message);
+            console.error("Error closing database:", err.message);
         } else {
-            console.log('Database connection closed.');
+            console.log("Database connection closed.");
         }
     });
 
-    return await res;
-
-    
+    return res;
 }
 
 export default registerVote;
