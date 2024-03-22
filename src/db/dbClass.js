@@ -4,7 +4,7 @@ import sqlite3 from "sqlite3";
 class Database {
     dbName = "voteLangDb";
     tableName = "topLangs";
-    createDB = async function () {
+    createDB = async () => {
         const db = new sqlite3.Database(this.dbName + ".db", (err) => {
             if (err) {
                 console.log("Error 1: " + err);
@@ -16,7 +16,7 @@ class Database {
         return db;
     };
 
-    connectDB = async function () {
+    connectDB = async ()=> {
         return new sqlite3.Database(
             "voteLangDb.db",
             (err) => {
@@ -29,7 +29,7 @@ class Database {
         );
     };
 
-    createTable = async function (db) {
+    createTable = async (db) => {
         try {
             // Create table if it doesn't exist
             await db.run(`CREATE TABLE IF NOT EXISTS topLangs (
@@ -42,6 +42,17 @@ class Database {
             console.log(error);
         }
     };
+
+    readTable = async(db) =>{
+        db.all("select * from topLangs", (err, rows)=>{
+            if (err) {
+                console.log("Error 2: " + err);
+                return;
+            } else {
+                return rows;
+            }
+        })
+    }
 }
 
 export default Database;

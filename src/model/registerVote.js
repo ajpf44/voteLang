@@ -1,4 +1,4 @@
-import Database from "../db/db.js";
+import dbClass from "../db/dbClass.js";
 
 const supportedLanguages = [
     "PHP",
@@ -15,9 +15,9 @@ const supportedLanguages = [
 const lowerCaseSL = supportedLanguages.map((lang) => lang.toLowerCase());
 async function registerVote(lang, votes) {
     let res = null;
-    const myDB = new Database();
-    const db = await myDB.connectDB();
-    //await myDB.createTable(db);
+    const dbC = new dbC();
+    const db = await dbC.connectDB();
+    //await dbC.createTable(db);
     //already exists in db
 
     try {

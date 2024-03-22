@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import registerVote from "./model/registerVote.js";
+import consultVote from "./model/consultVotes.js";
 
 const port = process.env.PORT || 3030;
 const fastify = Fastify({
@@ -9,7 +10,6 @@ const fastify = Fastify({
 
 fastify.get("/", (req, res) => {
     const str = "Hello World!";
-    console.log(str);
     res.send(str);
 });
 
@@ -23,13 +23,18 @@ fastify.post("/vote", async (req, res) => {
     const registerStatus = await registerVote(vote["lang"]);
 
     if (registerStatus == null) {
-        res.status(401);
+        res.status(501);
         res.send("Internal error, cannot register this vote");
         return;
     }
     res.status(200);
     res.send("Voto concluido");
 });
+
+fastify.get("/result", async(req, res)=>{
+    res.sendStatus(200);
+    res.send(await consultVote())
+})
 
 fastify.listen({ port: port }, (err, address) => {
     if (err) {
