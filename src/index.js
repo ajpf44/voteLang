@@ -7,7 +7,6 @@ const fastify = Fastify({
     logger: false,
 });
 
-
 fastify.get("/", (req, res) => {
     const str = "Hello World!";
     res.send(str);
@@ -31,10 +30,13 @@ fastify.post("/vote", async (req, res) => {
     res.send("Voto concluido");
 });
 
-fastify.get("/result", async(req, res)=>{
-    res.sendStatus(200);
-    res.send(await consultVote())
-})
+fastify.get("/result", async (req, res) => {
+    const myRes = await consultVote();
+    
+    res.type("application/json");
+    res.status(200);
+    res.send(myRes);
+});
 
 fastify.listen({ port: port }, (err, address) => {
     if (err) {

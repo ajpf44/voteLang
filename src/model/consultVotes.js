@@ -3,8 +3,12 @@ import dbClass from "../db/dbClass.js";
 const consult = async () => {
     const dbC = new dbClass();
     const db = await dbC.connectDB();
+    const resArr = await dbC.readTable(db);
+    const resObj = [];
 
-    const resObj = await dbC.readTable(db);
+    for (let r of resArr) {
+        resObj.push({ lang: r.lang, votes: r.votes });
+    }
 
     db.close((err) => {
         if (err) {
@@ -13,7 +17,7 @@ const consult = async () => {
             console.log("Database connection closed.");
         }
     });
-    
+
     return resObj;
 };
 

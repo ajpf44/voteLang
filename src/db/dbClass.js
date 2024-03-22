@@ -43,16 +43,18 @@ class Database {
         }
     };
 
-    readTable = async(db) =>{
-        db.all("select * from topLangs", (err, rows)=>{
-            if (err) {
-                console.log("Error 2: " + err);
-                return;
-            } else {
-                return rows;
-            }
-        })
-    }
+    readTable = function(db) {
+        return new Promise((resolve, reject) => {
+            db.all("SELECT * FROM topLangs", (err, rows) => {
+                if (err) {
+                    console.log("Error: " + err);
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+    };
 }
 
 export default Database;
