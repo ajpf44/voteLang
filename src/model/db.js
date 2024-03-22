@@ -1,5 +1,5 @@
 import sqlite3 from "sqlite3";
-import tableExist from "./tableExist.js";
+
 
 class Database {
     dbName = "voteLangDb";
@@ -16,22 +16,30 @@ class Database {
         return db;
     };
 
+    connectDB = async function () {
+        return new sqlite3.Database(
+            "voteLangDb.db",
+            (err) => {
+                if (err) {
+                    console.error("Error opening database: ", err.message);
+                } else {
+                    console.log("Connected to the database.");
+                }
+            }
+        );
+    };
+
     createTable = async function (db) {
         try {
             // Create table if it doesn't exist
             await db.run(`CREATE TABLE IF NOT EXISTS topLangs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 lang TEXT,
-                votes INTEGER
+                votes INTEGER NOT NULL DEFAULT 0
             )`);
             console.log("Table created");
         } catch (error) {
-            // Check if the error is due to the table already existing
-            if (error.message.includes("table topLangs already exists")) {
-                console.log("Table already exists");
-            } else {
-                console.log("Error: " + error);
-            }
+            console.log(error);
         }
     };
 }
