@@ -23,8 +23,8 @@ async function registerVote(lang, votes) {
     try {
         if (!lowerCaseSL.includes(lang)) return false;
         //else
-        const query = `INSERT INTO topLangs (lang, votes) VALUES (?, ?)`;
-        db.run(query, [lang, votes], (err) => {
+        const query = `UPDATE topLangs SET votes = votes + 1 WHERE lang = ?`;
+        db.run(query, [lang], (err) => {
             if (err) {
                 console.log("Error 3: " + err);
                 res = false;

@@ -18,7 +18,8 @@ const register = async () =>{
         "TypeScript",
     ];
     
-    supportedLanguages.forEach((lang) => {
+    supportedLanguages.forEach(async (lang) => {
+        db.run(`DELETE FROM topLangs`);
         const query = `INSERT INTO topLangs (lang, votes) VALUES (?, ?)`;
         db.run(query, [lang.toLowerCase(), 0], (err) => {
             if (err) {
