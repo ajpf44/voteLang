@@ -1,4 +1,4 @@
-import Database from "../model/db.js";
+import Database from "../db/db.js";
 
 const supportedLanguages = [
     "PHP",

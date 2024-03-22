@@ -1,7 +1,4 @@
-import myDB from "./model/db.js";
-
-
-
+import myDB from "./db/db.js";
 
 const register = async () =>{
     const mDB = new myDB();
