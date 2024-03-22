@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import registerVote from "./controller/registerVote.js";
+import registerVote from "./model/registerVote.js";
 
 const port = process.env.PORT || 3030;
 const fastify = Fastify({
@@ -14,14 +14,13 @@ fastify.get("/", (req, res) => {
 });
 
 fastify.post("/vote", async (req, res) => {
-    const params = req.params;
     const vote = await req.body;
-    if (vote["lang"] == null || vote["votes"] == null) {
+    if (vote["lang"] == null) {
         res.status(400);
         res.send("Parâmetros inválidos");
         return;
     }
-    const registerStatus = await registerVote(vote["lang"], vote["votes"]);
+    const registerStatus = await registerVote(vote["lang"]);
 
     if (registerStatus == null) {
         res.status(401);
