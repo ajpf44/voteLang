@@ -1,6 +1,6 @@
 import myDB from "./db/db.js";
 
-const register = async () =>{
+const resetTable = async () =>{
     const mDB = new myDB();
     const db =  await mDB.connectDB();
     const supportedLanguages = [
