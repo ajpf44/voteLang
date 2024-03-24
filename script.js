@@ -19,8 +19,20 @@ supportedLanguages.forEach((l) => {
 });
 
 const divDisplayResult = document.getElementsByClassName("display-results")[0];
-
+let idIntervalLoadingMessage;
 window.addEventListener("load", async () => {
+    const loadingMessage = document.getElementById("loading-message");
+    let numerOfDotsLoadingMessage = 0;
+    const maxDots = 5;
+    idIntervalLoadingMessage = setInterval(() => {
+        loadingMessage.innerHTML = "Carregando";
+        for (let i = 0; i < numerOfDotsLoadingMessage; ++i) {
+            loadingMessage.innerHTML += ".";
+        }
+        if (numerOfDotsLoadingMessage >= maxDots) {
+            numerOfDotsLoadingMessage = 0;
+        } else ++numerOfDotsLoadingMessage;
+    }, 500);
     await printResult();
 });
 
@@ -34,11 +46,12 @@ async function getResult() {
 }
 
 async function printResult() {
-    divDisplayResult.innerHTML = "";
     const res = await getResult();
-    console.log(await res.body);
     const data = await res.json();
-    console.log(data);
+
+    divDisplayResult.innerHTML = "";
+    clearInterval(idIntervalLoadingMessage);
+    
     data.map((lang) => {
         const li = document.createElement("li");
         li.innerText = `${lang.lang}: ${lang.votes}`;
